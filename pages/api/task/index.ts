@@ -1,13 +1,14 @@
 import Task from "../../../models/Task";
 import dbConnect from "../../../utils/dbConnect";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: any, res: any) => {
   const { method } = req;
 
-  // connect to db
+  // Connect to database
   await dbConnect();
 
-  // create task
+  // Create task
   if (method === "POST") {
     try {
       const newTask = await new Task(req.body).save();
@@ -20,7 +21,6 @@ export default async (req: any, res: any) => {
     }
   }
 
-  // get all tasks (read)
   if (method === "GET") {
     try {
       const tasks = await Task.find();
