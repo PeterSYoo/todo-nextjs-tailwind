@@ -123,8 +123,8 @@ export default function Home(props: any) {
               <div className="flex flex-col">
                 <div className="grid grid-cols-12 items-center">
                   {/* Return Arrow */}
-                  <div className="col-span-1 col-start-1 h-4">
-                    <div className="ml-2">
+                  <div className="col-span-1 col-start-1 -mt-6">
+                    <div className="ml-1">
                       <BsArrowReturnRight />
                     </div>
                   </div>
@@ -146,18 +146,22 @@ export default function Home(props: any) {
                             />
                             {task.completed ? (
                               <div className="text-sm line-through">
-                                <div className="">{task.task}</div>
-                                <div>{task.createdAt}</div>
+                                <div>{task.task}</div>
+                                <div className="text-xs text-gray-500">
+                                  {task.createdAt}
+                                </div>
                               </div>
                             ) : (
                               <div className="break-all text-sm">
-                                <div className="">{task.task}</div>
-                                <div>{task.createdAt}</div>
+                                <div>{task.task}</div>
+                                <div className="text-xs text-gray-500">
+                                  {task.createdAt}
+                                </div>
                               </div>
                             )}
                           </div>
                         </div>
-                        <div className="ml-1 flex gap-3">
+                        <div className="ml-2 flex gap-3">
                           <button
                             onClick={() => editTask(task._id)}
                             className="small-button"
