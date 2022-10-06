@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  AiFillFolder,
-  AiOutlineEdit,
-  AiOutlineCloseCircle,
-} from "react-icons/ai";
+import { AiFillFolder, AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { RiMenuAddFill, RiCheckLine } from "react-icons/ri";
 import axios from "axios";
@@ -97,10 +93,7 @@ export default function Home(props: any) {
                     onChange={handleChange}
                     value={task.task}
                   />
-                  <button
-                    type="submit"
-                    className="rounded-lg py-2 px-4 shadow shadow-gray-900"
-                  >
+                  <button type="submit" className="button-pop">
                     {/* @ts-ignore */}
                     {task._id ? <RiCheckLine /> : <RiMenuAddFill />}
                   </button>
@@ -136,7 +129,7 @@ export default function Home(props: any) {
                   {tasks.map((task: any) => (
                     <div
                       key={task._id}
-                      className="col-span-11 col-start-2 -ml-4 h-7"
+                      className="-pb-4 col-span-11 col-start-2 -ml-4 -mt-2"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center">
@@ -157,12 +150,18 @@ export default function Home(props: any) {
                             )}
                           </div>
                         </div>
-                        <div className="flex gap-5">
-                          <button onClick={() => editTask(task._id)}>
+                        <div className="flex gap-3">
+                          <button
+                            onClick={() => editTask(task._id)}
+                            className="small-button"
+                          >
                             <AiOutlineEdit />
                           </button>
-                          <button onClick={() => deleteTask(task._id)}>
-                            <AiOutlineCloseCircle />
+                          <button
+                            onClick={() => deleteTask(task._id)}
+                            className="small-button"
+                          >
+                            <AiOutlineClose />
                           </button>
                         </div>
                       </div>

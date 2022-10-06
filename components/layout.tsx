@@ -4,7 +4,7 @@ const Layout = ({ children }: any) => {
   return (
     <>
       <Head>
-        <title>Todo List - Nextjs / Tailwind</title>
+        <title>Todo List - Nextjs / Tailwind / MongoDB</title>
       </Head>
       <div>{children}</div>
     </>
