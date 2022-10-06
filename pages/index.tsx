@@ -4,11 +4,12 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import { RiMenuAddFill, RiCheckLine } from "react-icons/ri";
 import axios from "axios";
 
-const url = "http://localhost:3000/api/task";
+const url = process.env.NEXT_PUBLIC_URL;
 
 export default function Home(props: any) {
   const [tasks, setTasks] = useState(props.tasks);
   const [task, setTask] = useState({ task: "" });
+  const [date, setDate] = useState("");
 
   const handleChange = ({ currentTarget: input }: any) => {
     input.value === ""
@@ -31,8 +32,10 @@ export default function Home(props: any) {
         originalTasks[index] = data.data;
         setTasks(originalTasks);
         setTask({ task: "" });
+        // @ts-ignore
         console.log(data.message);
       } else {
+        // @ts-ignore
         const { data } = await axios.post(url, task);
         setTasks((prev: any) => [...prev, data.data]);
         setTask({ task: "" });
@@ -83,13 +86,13 @@ export default function Home(props: any) {
             {/* Black Bar */}
             <div className="h-2 bg-black">&nbsp;</div>
             {/* Task Form */}
-            <div className="p-4">
+            <div className="px-5 py-4 md:px-20">
               <form onSubmit={addTask}>
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center justify-between gap-6">
                   <input
                     type="text"
                     placeholder="add task..."
-                    className="w-full border border-gray-500 bg-[#dfe4e8] p-2 text-sm text-gray-600 focus:outline-none"
+                    className="w-full border border-gray-500 bg-[#dfe4e8] p-2 text-sm focus:outline-none"
                     onChange={handleChange}
                     value={task.task}
                   />
@@ -117,10 +120,10 @@ export default function Home(props: any) {
               </div>
 
               {/* Tasks Container */}
-              <div className="mt-4 flex flex-col">
+              <div className="flex flex-col">
                 <div className="grid grid-cols-12 items-center">
                   {/* Return Arrow */}
-                  <div className="col-span-1 col-start-1 h-6">
+                  <div className="col-span-1 col-start-1 h-4">
                     <div className="ml-2">
                       <BsArrowReturnRight />
                     </div>
@@ -129,28 +132,32 @@ export default function Home(props: any) {
                   {tasks.map((task: any) => (
                     <div
                       key={task._id}
-                      className="-pb-4 col-span-11 col-start-2 -ml-4 -mt-2"
+                      className="-pb-4 col-span-11 col-start-2 mt-2 ml-2 md:-ml-4"
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div className="flex items-center gap-2">
+                        <div className="flex">
+                          <div className="flex items-start gap-2 break-all">
                             {/* Checkbox */}
                             <input
                               type="checkbox"
                               checked={task.completed}
                               onChange={() => updateTask(task._id)}
-                              className="accent-black"
+                              className="mt-1 accent-black"
                             />
                             {task.completed ? (
-                              <span className="text-sm line-through">
-                                {task.task}
-                              </span>
+                              <div className="text-sm line-through">
+                                <div className="">{task.task}</div>
+                                <div>{task.createdAt}</div>
+                              </div>
                             ) : (
-                              <span className="text-sm">{task.task}</span>
+                              <div className="break-all text-sm">
+                                <div className="">{task.task}</div>
+                                <div>{task.createdAt}</div>
+                              </div>
                             )}
                           </div>
                         </div>
-                        <div className="flex gap-3">
+                        <div className="ml-1 flex gap-3">
                           <button
                             onClick={() => editTask(task._id)}
                             className="small-button"
@@ -165,11 +172,15 @@ export default function Home(props: any) {
                           </button>
                         </div>
                       </div>
+                      {/* Line Break HR */}
+                      <div className="mt-2 border-b"></div>
                     </div>
                   ))}
                   {tasks.length === 0 && (
-                    <div className="col-span-11 col-start-2 -ml-4 h-8">
-                      <span className="text-sm italic">No Tasks</span>
+                    <div className="col-span-11 col-start-2 -ml-4 h-[54px]">
+                      <div className="mt-4 pl-6 text-sm italic md:pl-0">
+                        No Tasks
+                      </div>
                     </div>
                   )}
                 </div>
@@ -183,7 +194,9 @@ export default function Home(props: any) {
 }
 
 export const getServerSideProps = async () => {
+  // @ts-ignore
   const { data } = await axios.get(url);
+
   return {
     props: {
       tasks: data.data,
