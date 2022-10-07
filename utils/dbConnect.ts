@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const DB_URL = process.env.DB_URL;
+const NEXT_PUBLIC_DB_URL = process.env.DB_URL;
 
-if (!DB_URL) {
+if (!NEXT_PUBLIC_DB_URL) {
   throw new Error(
-    "Please define the DB_URL environment variable inside .env.local"
+    "Please define the NEXT_PUBLIC_DB_URL environment variable inside .env.local"
   );
 }
 

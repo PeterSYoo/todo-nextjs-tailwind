@@ -9,7 +9,6 @@ const url = process.env.NEXT_PUBLIC_URL;
 export default function Home(props: any) {
   const [tasks, setTasks] = useState(props.tasks);
   const [task, setTask] = useState({ task: "" });
-  const [date, setDate] = useState("");
 
   const handleChange = ({ currentTarget: input }: any) => {
     input.value === ""
@@ -48,6 +47,7 @@ export default function Home(props: any) {
 
   const editTask = (id: any) => {
     const currentTask = tasks.filter((task: any) => task._id === id);
+    console.log(currentTask);
     setTask(currentTask[0]);
   };
 
