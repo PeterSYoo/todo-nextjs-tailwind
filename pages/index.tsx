@@ -49,7 +49,6 @@ export default function Home(props: any) {
     const currentTask = tasks.filter(
       (task: any) => task._id === id && task._id !== undefined
     );
-    console.log(currentTask[0]);
     setTask(currentTask[0]);
   };
 
