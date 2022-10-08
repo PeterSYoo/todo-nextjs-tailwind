@@ -60,7 +60,8 @@ export default function Home(props: any) {
         completed: !originalTasks[index].completed,
       });
       originalTasks[index] = data.data;
-      setTasks(originalTasks);
+      console.log(originalTasks[index]);
+      setTasks(originalTasks[index]);
       console.log(data.message);
     } catch (error) {
       console.log(error);
