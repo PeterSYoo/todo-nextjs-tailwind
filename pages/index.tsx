@@ -46,10 +46,11 @@ export default function Home(props: any) {
   };
 
   const editTask = (id: any) => {
-    const currentTask = tasks.filter((task: any) => task._id === id);
-    console.log(currentTask);
-    let currentTaskZero = currentTask[0];
-    setTask(currentTaskZero);
+    const currentTask = tasks.filter(
+      (task: any) => task._id === id && task._id !== undefined
+    );
+    console.log(currentTask[0]);
+    setTask(currentTask[0]);
   };
 
   const updateTask = async (id: any) => {
