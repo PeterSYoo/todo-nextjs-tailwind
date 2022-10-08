@@ -55,13 +55,14 @@ export default function Home(props: any) {
   const updateTask = async (id: any) => {
     try {
       const originalTasks = [...tasks];
-      const index = originalTasks.findIndex((t) => t._id === id);
+      const index = originalTasks.findIndex(
+        (t) => t._id === id && t._id !== undefined
+      );
       const { data } = await axios.put(url + "/" + id, {
         completed: !originalTasks[index].completed,
       });
       originalTasks[index] = data.data;
-      console.log(originalTasks[index]);
-      setTasks(originalTasks[index]);
+      setTasks(originalTasks);
       console.log(data.message);
     } catch (error) {
       console.log(error);
